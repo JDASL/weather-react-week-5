@@ -46,7 +46,7 @@ span {
 }
 
 .temperature {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 400;
   position: relative;
   top: 15px;
@@ -58,6 +58,6 @@ span {
   font-weight: 400;
   position: relative;
   line-height: 1;
-  top: -15px;
-  margin-left: 2px;
+  top: -8px;
+  margin-left: 1px;
 }
