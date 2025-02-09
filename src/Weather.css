@@ -39,9 +39,6 @@ span {
 }
 
 .weather canvas {
-  height: 64px;
-  width: 64px;
-  margin-right: 10px;
   margin-bottom: -8px;
   display: inline-block;
 }

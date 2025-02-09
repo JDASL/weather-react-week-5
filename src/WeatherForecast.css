@@ -1,0 +1,20 @@
+.WeatherForecast {
+  text-align: center;
+}
+.WeatherForecast-day {
+  font-size: 14px;
+}
+.WeatherForecast-day,
+.WeatherForecast-temp-min,
+.WeatherForecast-temp-max {
+  color: rgb(252, 132, 3);
+}
+
+.WeatherForecast-temp-min {
+  opacity: 0.6;
+  margin-left: 5px;
+}
+.WeatherForecast-temp {
+  font-size: 12px;
+  margin-top: 5px;
+}
