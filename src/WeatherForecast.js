@@ -6,13 +6,14 @@ import axios from "axios";
 export default function WeatherForecast(props) {
   let [loaded, setLoaded] = useState(false);
   let [forecast, setForecast] = useState(null);
+
   function handleResponse(response) {
-    console.log("API Response:", response.data);
-    setForecast();
+    setForecast(response.data.daily);
     setLoaded(true);
   }
 
   if (loaded) {
+    console.log(forecast);
     return (
       <div className="WeatherForecast">
         <div className="row">
@@ -28,16 +29,27 @@ export default function WeatherForecast(props) {
       </div>
     );
   } else {
-    const apiKey = "9cb72bec958f8fb02391985ed7b219d2";
+    const apiKey = "675d141cdb9948699d89fad8a45e3139";
     let latitude = props.coordinates.lat;
     let longitude = props.coordinates.lon;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric`;
 
     axios
       .get(apiUrl)
       .then(handleResponse)
       .catch((error) => {
         console.error("API Error:", error.response);
+        if (error.response) {
+          console.error(
+            "API Response Error:",
+            error.response.status,
+            error.response.data
+          );
+        } else if (error.request) {
+          console.error("API Request Error:", error.request);
+        } else {
+          console.error("API Error:", error.message);
+        }
       });
     return null;
   }
