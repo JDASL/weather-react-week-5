@@ -4,7 +4,7 @@ import "./WeatherForecast.css";
 import axios from "axios";
 import WeatherForecastDay from "./WeatherForecastDay";
 
-export default function WeatherForecast({ coordinates }) {
+export default function WeatherForecast(props) {
   const [loaded, setLoaded] = useState(false);
   const [forecast, setForecast] = useState(null);
 
@@ -17,35 +17,26 @@ export default function WeatherForecast({ coordinates }) {
     return (
       <div className="WeatherForecast">
         <div className="row">
-          <div className="col">
-            <WeatherForecastDay data={forecast[0]} />
-          </div>
+          {forecast.map(function (dailyForecast, index) {
+            if (index < 5) {
+              return (
+                <div className="col" key={index}>
+                  <WeatherForecastDay data={dailyForecast} />
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     );
   } else {
-    const apiKey = "311f1f45fee82242ab4086372ab360f5";
-    let latitude = coordinates.lat;
-    let longitude = coordinates.lon;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric`;
+    const apiKey = "866a208a73eeff02182218e9441647a1";
+    let latitude = props.coord.lat;
+    let longitude = props.coord.lon;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-    axios
-      .get(apiUrl)
-      .then(handleResponse)
-      .catch((error) => {
-        console.error("API Error:", error.response);
-        if (error.response) {
-          console.error(
-            "API Response Error:",
-            error.response.status,
-            error.response.data
-          );
-        } else if (error.request) {
-          console.error("API Request Error:", error.request);
-        } else {
-          console.error("API Error:", error.message);
-        }
-      });
+    axios.get(apiUrl).then(handleResponse);
+
     return null;
   }
 }
